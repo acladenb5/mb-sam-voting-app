@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: MB voting application
+Resources:
+  ExampleAPI:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: go1.x
+      Handler: main
+      Events:
+        RootHandler:
+          Type: Api
+          Properties:
+            Path: '/'
+            Method: get
+        VoteHandlerP1:
+          Type: Api
+          Properties:
+            Path: '/p1'
+            Method: post
+		    VoteHandlerP2:
+		      Type: Api
+            Properties:
+              Path: '/p2'
+              Method: post
+        VoteHandlerP3:
+          Type: Api
+          Properties:
+            Path: '/p3'
+        ResultsHandler:
+          Type: Api
+          Properties:
+            Path: '/results'
+            Method: get
+        VersionHandler:
+          Type: Api
+          Properties:
+            Path: '/version'
+            Method: get
