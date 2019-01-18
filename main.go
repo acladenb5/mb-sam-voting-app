@@ -28,23 +28,29 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(WelcomeMessage)
 }
 
-// Functions handling the voting
+// TODO: Add dynamodb initilization and table creation
+
+// VoteHandlerP1 handlers the vote for participant #1
 func VoteHandlerP1(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// VoteHandlerP2 handlers the vote for participant #2
 func VoteHandlerP2(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// VoteHandlerP3 handlers the vote for participant #3
 func VoteHandlerP3(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// ResultsHandler returns the results of the votes for all participants
 func ResultsHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// VersionHandler returns the version of the api
 func VersionHandler(w http.ResponseWriter, r *http.Request) {
 
 }
