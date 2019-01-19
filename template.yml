@@ -2,12 +2,12 @@ AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
 Description: MB voting application
-Globals:
-  Environment:
-    Variables:
-      DYNAMO_TABLE: !Ref DynamoDBTable
-      DB_ENDPOINT: http://dynamodb.us-east-1.amazonaws.com
-      REGION_NAME: us-east-1
+#Globals:
+#  Environment:
+#    Variables:
+#      DYNAMO_TABLE: !Ref DynamoDBTable
+#      DB_ENDPOINT: http://dynamodb.us-east-1.amazonaws.com
+#      REGION_NAME: us-east-1
 Resources:
   DynamoDBTable:
     Type: AWS::Serverless::SimpleTable
@@ -63,15 +63,16 @@ Resources:
           Properties:
             Path: '/p1'
             Method: post
-		    VoteHandlerP2:
-		      Type: Api
-            Properties:
-              Path: '/p2'
-              Method: post
+        VoteHandlerP2:
+          Type: Api
+          Properties:
+            Path: '/p2'
+            Method: post
         VoteHandlerP3:
           Type: Api
           Properties:
             Path: '/p3'
+            Method: post
         ResultsHandler:
           Type: Api
           Properties:
