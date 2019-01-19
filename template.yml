@@ -2,8 +2,52 @@ AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
 Description: MB voting application
+Globals:
+  Environment:
+    Variables:
+      DYNAMO_TABLE: !Ref DynamoDBTable
+      DB_ENDPOINT: http://dynamodb.us-east-1.amazonaws.com
+      REGION_NAME: us-east-1
 Resources:
-  ExampleAPI:
+  DynamoDBTable:
+    Type: AWS::Serverless::SimpleTable
+    TableName: votingTable
+    PrimaryKey:
+      Name: ParticipantName
+      Type: String
+    ProvisionedThroughput:
+      ReadCapacityUnit: 5
+      WriteCapacityUnit: 5
+    Tags:
+      AppType: Serverless
+  FrontendS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: mb-sam-voting-frontend-bucket
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+      VersioningConfiguration:
+        Status: Enabled
+        DetentionPolicy: Retain
+  S3FrontendBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref FrontendS3Bucket
+      PolicyDocument:
+        Statement:
+          -
+            Action:
+              - "s3:GetObject"
+            Effect: "Allow"
+            Resource:
+              - !Join
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref FrontendS3Bucket
+                  - '/*'
+            Principal: '*'
+  VotingAPI:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: go1.x
@@ -38,3 +82,8 @@ Resources:
           Properties:
             Path: '/version'
             Method: get
+        ClearHandler:
+          Type: Api
+          Properties:
+            Path: '/cleartable'
+            Method: post

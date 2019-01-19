@@ -18,17 +18,18 @@ type Message struct {
 
 // Messages used by http.HandlerFunc functions.
 var (
-	WelcomeMessage = Message{"Welcome to the AWeSome SAM golang example API!"}
+	HomeMessage    = Message{"Masterbuilder serverless API"}
 	HelloMessage   = Message{"Hello, world!"}
 	GoodbyeMessage = Message{"Goodbye, world!"}
 )
 
 // RootHandler is a http.HandlerFunc for the / path.
 func RootHandler(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(WelcomeMessage)
+	json.NewEncoder(w).Encode(HomeMessage)
 }
 
 // TODO: Add dynamodb initilization and table creation
+// Read the doc for DynamoDB with golang
 
 // VoteHandlerP1 handlers the vote for participant #1
 func VoteHandlerP1(w http.ResponseWriter, r *http.Request) {
@@ -55,6 +56,11 @@ func VersionHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// ClearHandler clears the dynamobdb table
+func ClearHandler(w http.ResponseWriter, r *http.Request) {
+
+}
+
 // RegisterRoutes registers the API's routes.
 func RegisterRoutes() {
 	http.Handle("/", h(RootHandler))
@@ -63,6 +69,7 @@ func RegisterRoutes() {
 	http.Handle("/p3", h(VoteHandlerP3))
 	http.Handle("/results", h(ResultsHandler))
 	http.Handle("/version", h(VersionHandler))
+	http.Handle("/cleartable", h(ClearHandler))
 }
 
 // h wraps a http.HandlerFunc and adds common headers.
