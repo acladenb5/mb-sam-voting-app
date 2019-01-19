@@ -23,6 +23,12 @@ var (
 	GoodbyeMessage = Message{"Goodbye, world!"}
 )
 
+// Used by the main application
+var (
+	Version string
+	Build   string
+)
+
 // RootHandler is a http.HandlerFunc for the / path.
 func RootHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(HomeMessage)
