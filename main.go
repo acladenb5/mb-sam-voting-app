@@ -59,7 +59,9 @@ func ResultsHandler(w http.ResponseWriter, r *http.Request) {
 
 // VersionHandler returns the version of the api
 func VersionHandler(w http.ResponseWriter, r *http.Request) {
-
+	var BMsg = Build[:5]
+	var VersionMessage = "Version: " + Version + " - Build: " + BMsg
+	json.NewEncoder(w).Encode(VersionMessage)
 }
 
 // ClearHandler clears the dynamobdb table

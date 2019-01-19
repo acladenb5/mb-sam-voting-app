@@ -8,13 +8,13 @@ LDFLAGS=-ldflags "-X main.Version=${VERSION} -X main.Build=${BUILD}"
 .DEFAULT_GOAL: ${BINARY}
 
 ${BINARY}:
-	go build -v ${LDFLAGS} -o ${BINARY} .
+	GOOS=linux go build -v ${LDFLAGS} -o ${BINARY} .
 
 get:
 	go get -v .
 
 install:
-	go install -v ${LDFLAGS} -o ${BINARY} .
+	GOOS=linux go install -v ${LDFLAGS} -o ${BINARY} .
 
 clean:
 	if [ -f ${BINARY} ] ; then rm -f ${BINARY} ; fi
