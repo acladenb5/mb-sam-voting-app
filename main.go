@@ -34,9 +34,6 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(HomeMessage)
 }
 
-// TODO: Add dynamodb initilization and table creation
-// Read the doc for DynamoDB with golang
-
 // VoteHandlerP1 handlers the vote for participant #1
 func VoteHandlerP1(w http.ResponseWriter, r *http.Request) {
 
