@@ -16,6 +16,13 @@ type Message struct {
 	Message string `json:"message"`
 }
 
+// Results contains the results structure.
+type Results struct {
+	Participant1 int `json:"p1"`
+	Participant2 int `json:"p2"`
+	Participant3 int `json:"p3"`
+}
+
 // Used by the main application
 var (
 	Version string
@@ -27,7 +34,6 @@ var (
 	HomeMessage    = Message{"Masterbuilder serverless API"}
 	HelloMessage   = Message{"Hello, world!"}
 	GoodbyeMessage = Message{"Goodbye, world!"}
-	VersionMessage = Message{"Version: " + Version + " - Build: " + Build}
 )
 
 // RootHandler is a http.HandlerFunc for the / path.
@@ -37,22 +43,42 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 
 // VoteHandlerP1 handlers the vote for participant #1
 func VoteHandlerP1(w http.ResponseWriter, r *http.Request) {
-
+	// Get p1 detail from the DynamoDB table and increment count then write the result
+	// var TotalP1 = 0
+	// TotalP1++
+	// Don't forget error management (discard if cannot write, but for production app do somne more sophisticated stuff)
+	ResponseMessage := Message{"Added vote for participant P1"}
+	json.NewEncoder(w).Encode(ResponseMessage)
 }
 
 // VoteHandlerP2 handlers the vote for participant #2
 func VoteHandlerP2(w http.ResponseWriter, r *http.Request) {
-
+	// Get p2 detail from the DynamoDB table and increment count then write the result
+	// var TotalP2 = 0
+	// TotalP2++
+	ResponseMessage := Message{"Added vote for participant P2"}
+	json.NewEncoder(w).Encode(ResponseMessage)
 }
 
 // VoteHandlerP3 handlers the vote for participant #3
 func VoteHandlerP3(w http.ResponseWriter, r *http.Request) {
-
+	// Get p3 detail from the DynamoDB table and increment count then write the result
+	// var TotalP3 = 0
+	// TotalP3++
+	ResponseMessage := Message{"Added vote for participant P3"}
+	json.NewEncoder(w).Encode(ResponseMessage)
 }
 
 // ResultsHandler returns the results of the votes for all participants
 func ResultsHandler(w http.ResponseWriter, r *http.Request) {
-
+	// Get results for all participants and return to the caller
+	var TotalP1, TotalP2, TotalP3 int
+	// For offline dev, let's set some values
+	TotalP1 = 5403
+	TotalP2 = 6603
+	TotalP3 = 10
+	RetResults := Results{TotalP1, TotalP2, TotalP3}
+	json.NewEncoder(w).Encode(RetResults)
 }
 
 // VersionHandler returns the version of the api
@@ -64,7 +90,7 @@ func VersionHandler(w http.ResponseWriter, r *http.Request) {
 
 // ClearHandler clears the dynamobdb table
 func ClearHandler(w http.ResponseWriter, r *http.Request) {
-
+	// TODO: clear the DynamoDB table
 }
 
 // RegisterRoutes registers the API's routes.
