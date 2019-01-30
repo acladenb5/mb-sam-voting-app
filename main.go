@@ -16,17 +16,18 @@ type Message struct {
 	Message string `json:"message"`
 }
 
+// Used by the main application
+var (
+	Version string
+	Build   string
+)
+
 // Messages used by http.HandlerFunc functions.
 var (
 	HomeMessage    = Message{"Masterbuilder serverless API"}
 	HelloMessage   = Message{"Hello, world!"}
 	GoodbyeMessage = Message{"Goodbye, world!"}
-)
-
-// Used by the main application
-var (
-	Version string
-	Build   string
+	VersionMessage = Message{"Version: " + Version + " - Build: " + Build}
 )
 
 // RootHandler is a http.HandlerFunc for the / path.
