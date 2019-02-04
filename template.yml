@@ -13,8 +13,8 @@ Resources:
     Type: AWS::Serverless::SimpleTable
     TableName: votingTable
     PrimaryKey:
-      Name: ParticipantName
-      Type: String
+      Name: ParticipantID
+      Type: Number
     ProvisionedThroughput:
       ReadCapacityUnit: 5
       WriteCapacityUnit: 5
@@ -52,26 +52,17 @@ Resources:
     Properties:
       Runtime: go1.x
       Handler: main
+      Policies: DynamoDBFullAccess
       Events:
         RootHandler:
           Type: Api
           Properties:
             Path: '/'
             Method: get
-        VoteHandlerP1:
+        VoteHandler:
           Type: Api
           Properties:
-            Path: '/p1'
-            Method: post
-        VoteHandlerP2:
-          Type: Api
-          Properties:
-            Path: '/p2'
-            Method: post
-        VoteHandlerP3:
-          Type: Api
-          Properties:
-            Path: '/p3'
+            Path: '/vote/{pid}'
             Method: post
         ResultsHandler:
           Type: Api
