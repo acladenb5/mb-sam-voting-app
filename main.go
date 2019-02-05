@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -18,9 +19,8 @@ type Message struct {
 
 // Results contains the results structure.
 type Results struct {
-	Participant1 int `json:"p1"`
-	Participant2 int `json:"p2"`
-	Participant3 int `json:"p3"`
+	Pid    string `json:"pid"`
+	Result int    `json:"result"`
 }
 
 // Used by the main application
@@ -77,7 +77,15 @@ func ResultsHandler(w http.ResponseWriter, r *http.Request) {
 	TotalP1 = 5403
 	TotalP2 = 6603
 	TotalP3 = 10
-	RetResults := Results{TotalP1, TotalP2, TotalP3}
+	ResP1 := Results{Pid: "Participant 1", Result: TotalP1}
+	ResP2 := Results{Pid: "Participant 2", Result: TotalP2}
+	ResP3 := Results{Pid: "Participant 3", Result: TotalP3}
+	var RetResults []Results
+	RetResults[0] = ResP1
+	RetResults[1] = ResP2
+	RetResults[3] = ResP3
+	// RetResults := Results{TotalP1, TotalP2, TotalP3}
+	fmt.Println(RetResults)
 	json.NewEncoder(w).Encode(RetResults)
 }
 
