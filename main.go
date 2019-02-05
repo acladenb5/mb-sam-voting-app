@@ -77,9 +77,9 @@ func ResultsHandler(w http.ResponseWriter, r *http.Request) {
 	TotalP2 = 6603
 	TotalP3 = 10
 	var RetResults []Results
-	RetResults = append(RetResults, Results{"Participant 1", TotalP1})
-	RetResults = append(RetResults, Results{"Participant 2", TotalP2})
-	RetResults = append(RetResults, Results{"Participant 3", TotalP3})
+	RetResults = append(RetResults, Results{"Cat", TotalP1})
+	RetResults = append(RetResults, Results{"Dog", TotalP2})
+	RetResults = append(RetResults, Results{"Neither", TotalP3})
 	json.NewEncoder(w).Encode(RetResults)
 }
 
