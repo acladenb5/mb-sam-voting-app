@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -41,31 +42,40 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // VoteHandlerP1 handlers the vote for participant #1
-func VoteHandlerP1(w http.ResponseWriter, r *http.Request) {
-	// Get p1 detail from the DynamoDB table and increment count then write the result
-	// var TotalP1 = 0
-	// TotalP1++
-	// Don't forget error management (discard if cannot write, but for production app do somne more sophisticated stuff)
-	ResponseMessage := Message{"Added vote for participant P1"}
-	json.NewEncoder(w).Encode(ResponseMessage)
-}
+// func VoteHandlerP1(w http.ResponseWriter, r *http.Request) {
+// Get p1 detail from the DynamoDB table and increment count then write the result
+// var TotalP1 = 0
+// TotalP1++
+// Don't forget error management (discard if cannot write, but for production app do somne more sophisticated stuff)
+// 	ResponseMessage := Message{"Added vote for participant P1"}
+// 	json.NewEncoder(w).Encode(ResponseMessage)
+// }
 
 // VoteHandlerP2 handlers the vote for participant #2
-func VoteHandlerP2(w http.ResponseWriter, r *http.Request) {
-	// Get p2 detail from the DynamoDB table and increment count then write the result
-	// var TotalP2 = 0
-	// TotalP2++
-	ResponseMessage := Message{"Added vote for participant P2"}
-	json.NewEncoder(w).Encode(ResponseMessage)
-}
+// func VoteHandlerP2(w http.ResponseWriter, r *http.Request) {
+// Get p2 detail from the DynamoDB table and increment count then write the result
+// var TotalP2 = 0
+// TotalP2++
+// 	ResponseMessage := Message{"Added vote for participant P2"}
+// 	json.NewEncoder(w).Encode(ResponseMessage)
+// }
 
 // VoteHandlerP3 handlers the vote for participant #3
-func VoteHandlerP3(w http.ResponseWriter, r *http.Request) {
-	// Get p3 detail from the DynamoDB table and increment count then write the result
-	// var TotalP3 = 0
-	// TotalP3++
-	ResponseMessage := Message{"Added vote for participant P3"}
-	json.NewEncoder(w).Encode(ResponseMessage)
+// func VoteHandlerP3(w http.ResponseWriter, r *http.Request) {
+// Get p3 detail from the DynamoDB table and increment count then write the result
+// var TotalP3 = 0
+// TotalP3++
+// 	ResponseMessage := Message{"Added vote for participant P3"}
+// 	json.NewEncoder(w).Encode(ResponseMessage)
+// }
+
+// VoteHandler handles all the votes
+func VoteHandler(w http.ResponseWriter, r *http.Request) {
+	// Get the participant id from the request
+	pid := r.URL.Path
+	fmt.Println(pid)
+	VoteMessage := "You have voted for participant " + "pid"
+	json.NewEncoder(w).Encode(VoteMessage)
 }
 
 // ResultsHandler returns the results of the votes for all participants
@@ -98,9 +108,7 @@ func ClearHandler(w http.ResponseWriter, r *http.Request) {
 // RegisterRoutes registers the API's routes.
 func RegisterRoutes() {
 	http.Handle("/", h(RootHandler))
-	http.Handle("/p1", h(VoteHandlerP1))
-	http.Handle("/p2", h(VoteHandlerP2))
-	http.Handle("/p3", h(VoteHandlerP3))
+	http.Handle("/vote", h(VoteHandler))
 	http.Handle("/results", h(ResultsHandler))
 	http.Handle("/version", h(VersionHandler))
 	http.Handle("/cleartable", h(ClearHandler))
