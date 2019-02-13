@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -72,8 +71,9 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 // VoteHandler handles all the votes
 func VoteHandler(w http.ResponseWriter, r *http.Request) {
 	// Get the participant id from the request
+	log.Println("Inside VoteHandler")
 	pid := r.URL.Path
-	fmt.Println(pid)
+	log.Println(pid)
 	VoteMessage := "You have voted for participant " + "pid"
 	json.NewEncoder(w).Encode(VoteMessage)
 }
